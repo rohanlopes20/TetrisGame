@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<style>
+	table
+	{
+		width: 320px;
+		height: 350px;
+		border:1px solid black;
+	}
+
+	td
+	{
+		width: 10px;
+		height: 10px;
+		border:1px solid black;
+	}
+
+	.main
+	{
+		margin: 0 auto;
+		width: 320px;
+	}
+
+	.header
+	{
+		text-align: center;
+		display: none;
+	}
+
+	.color
+	{
+		background-color: red;
+	}
+
+</style>
+<script>
+	var n = 10;
+	var mv11 = 1;
+	var mv12 = 5;
+	var mv21 = 2;
+	var mv22 = 5;
+	var mv31 = 2;
+	var mv32 = 5;
+
+	function grid() {
+		var data 	= "<table>";
+		for (var i = 1; i <= n; i++) {
+			data += "<tr>";
+			for (var j=1; j <= n; j++) {
+				data += "<td data-src=\"" + (i + "," + j) + "\"></td>";
+			}
+			data += "</tr>";
+		}
+		data += "</table>";
+		$(".main").html(data);
+	}
+
+	$(document).keypress(function(e) {
+		var code = e.keyCode || e.which;
+		bricks(code);
+	});
+
+	function move() {
+		$("table tr td[data-src='1,5']").addClass("color");
+		$("table tr td[data-src='1,4']").addClass("color");
+		$("table tr td[data-src='2,5']").addClass("color");
+	}
+
+	function bricks(keycode) {
+
+		switch (keycode) {
+			case 37 :
+				console.log('left');
+				break;
+			case 38 :
+				console.log('up');
+				break;
+			case 39 :
+				console.log('right');
+				break;
+			case 40 :
+				console.log('down');
+				break;
+			default :
+				console.log('other');
+				break;
+		}
+	}
+
+	$(document).ready(function () {
+		grid();
+	});
+</script>
+</head>
+	<body>
+		<div class="header">
+			Tetris Game
+		</div>
+		<br>
+		<div class="main">
+		</div>
+	</body>
+</html>
