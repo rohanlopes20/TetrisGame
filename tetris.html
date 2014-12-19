@@ -12,8 +12,8 @@
 
 	td
 	{
-		width: 10px;
-		height: 10px;
+		width: 5px;
+		height: 5px;
 		border:1px solid black;
 	}
 
@@ -36,7 +36,8 @@
 
 </style>
 <script>
-	var n = 10;
+	var n = 15;
+	var z = 1;
 	var mv11 = 1;
 	var mv12 = 5;
 	var mv21 = 2;
@@ -63,10 +64,24 @@
 	});
 
 	function move() {
+		$("table tr td").removeClass("color");
+
 		$("table tr td[data-src='1,5']").addClass("color");
 		$("table tr td[data-src='1,4']").addClass("color");
 		$("table tr td[data-src='2,5']").addClass("color");
+		
+		if(z < 15){
+			console.log(z);
+		    $("table tr td[data-src=\"" + (z + "," + 5) + "\"]").addClass("color");
+		    $("table tr td[data-src=\"" + ((z+1) + "," + 5) + "\"]").addClass("color");
+		    $("table tr td[data-src=\"" + (z + "," + 4) + "\"]").addClass("color");
+		    z++;
+			setTimeout(move(), 3000);
+		}
+		
 	}
+
+	setTimeout(move(), 2000);
 
 	function bricks(keycode) {
 
