@@ -64,24 +64,23 @@
 	});
 
 	function move() {
-		$("table tr td").removeClass("color");
-
+	
 		$("table tr td[data-src='1,5']").addClass("color");
 		$("table tr td[data-src='1,4']").addClass("color");
 		$("table tr td[data-src='2,5']").addClass("color");
 		
 		if(z < 15){
+			$("table tr td").removeClass("color");
 			console.log(z);
 		    $("table tr td[data-src=\"" + (z + "," + 5) + "\"]").addClass("color");
 		    $("table tr td[data-src=\"" + ((z+1) + "," + 5) + "\"]").addClass("color");
 		    $("table tr td[data-src=\"" + (z + "," + 4) + "\"]").addClass("color");
 		    z++;
-			setTimeout(move(), 3000);
 		}
 		
 	}
 
-	setTimeout(move(), 2000);
+	setInterval(function(){move();}, 1000);
 
 	function bricks(keycode) {
 
