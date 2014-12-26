@@ -25,8 +25,22 @@
 
 	.header
 	{
+		background: none repeat scroll 0% 0% #00c2f2;
+		line-height: 30px;
+		padding: 5px 10px;
+		color: white;
+		font-weight: 600;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 18px;
+		border-radius:10px;
+		width: 320px;
+		margin: 0 auto;
 		text-align: center;
-		display: none;
+	}
+
+	.sc
+	{
+		text-align: center;
 	}
 
 	.color
@@ -66,7 +80,7 @@
 
 	function titleGenerator() {
 		var titlePatterns = Math.floor((Math.random() * 4) + 1);
-		color = '#'+Math.floor(Math.random()*16777215).toString(16);
+		color = 'red';
 		console.log("==>", titlePatterns);
 		switch(titlePatterns) {
 			case 1 :
@@ -173,6 +187,10 @@
 		</div>
 		<br>
 		<div class="main">
+		</div>
+		<div class="sc">
+		<br>
+		Score : <span class="score">0</span>
 		</div>
 	</body>
 </html>
