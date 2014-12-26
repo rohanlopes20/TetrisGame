@@ -38,19 +38,19 @@
 <script>
 	var n = 15;
 	var z = 1;
-	var mv11 = 1;
-	var mv12 = 5;
-	var mv21 = 4;
-	var mv22 = 5;
-	var mv31 = 2;
-	var mv32 = 5;
+	var mv1 = 1;
+	var mv2 = 2;
+	var box1 = 7;
+	var box2 = 8;
+	var box3 = 7;
+	var box4 = 8;
 
 	function grid() {
 		var data 	= "<table>";
 		for (var i = 1; i <= n; i++) {
 			data += "<tr>";
 			for (var j=1; j <= n; j++) {
-				data += "<td data-src=\"" + (i + "," + j) + "\"></td>";
+				data += "<td rm=\"\" data-src=\"" + (i + "," + j) + "\"></td>";
 			}
 			data += "</tr>";
 		}
@@ -63,21 +63,65 @@
 		bricks(code);
 	});
 
+	function titleGenerator() {
+		var titlePatterns = Math.floor((Math.random() * 4) + 1);
+		console.log("==>", titlePatterns);
+		switch(titlePatterns) {
+			case 1 :
+					box1 = 7;
+					box2 = 8;
+					box3 = 7;
+					box4 = 8;
+					break;
+			case 2 :
+					box1 = 7;
+					box2 = 8;
+					box3 = undefined;
+					box4 = undefined;
+					break;
+			case 3 :
+					box1 = 7;
+					box2 = 8;
+					box3 = undefined;
+					box4 = 8;
+					break;
+			case 4 :
+					box1 = 7;
+					box2 = 8;
+					box3 = 7;
+					box4 = 8;
+					break;
+			default :
+					box1 = 7;
+					box2 = 8;
+					box3 = 7;
+					box4 = 8;
+					break;
+		}
+	}
+
 	function move() {
 	
-		$("table tr td[data-src='1,5']").addClass("color");
-		$("table tr td[data-src='1,4']").addClass("color");
-		$("table tr td[data-src='2,5']").addClass("color");
+		$("table tr td[data-src='1, '" + box1 + "'']").addClass("color");
+		$("table tr td[data-src='1, '" + box2 + "'']").addClass("color");
+		$("table tr td[data-src='2, '" + box2 + "'']").addClass("color");
 		
 		if(z < 15){
-			$("table tr td").removeClass("color");
+			$("table tr td[rm]").removeClass("color");
 			console.log(z);
-		    $("table tr td[data-src=\"" + (z + "," + mv12) + "\"]").addClass("color");
-		    $("table tr td[data-src=\"" + ((z+1) + "," + mv12) + "\"]").addClass("color");
-		    $("table tr td[data-src=\"" + (z + "," + mv21) + "\"]").addClass("color");
+		    $("table tr td[data-src=\"" + (z + "," + box1) + "\"]").addClass("color");
+		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").addClass("color");
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").addClass("color");
+		    //$("table tr td[data-src=\"" + (z + "," + box4) + "\"]").addClass("color");
 		    z++;
 		}
 		
+		if(z == 14) {
+			console.log('===================');
+			$("table tr td[data-src=\"" + (z + "," + box1) + "\"]").removeAttr("rm");
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").removeAttr("rm");
+		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").removeAttr("rm");
+		}
 	}
 
 	setInterval(function(){move();if(z===15){z=1;}}, 1000);
@@ -86,20 +130,25 @@
 
 		switch (keycode) {
 			case 37 :
-				mv12 -= 1;
-				mv21 -= 1;
+				if(true) {
+					box1 -= 1;
+					box2 -= 1;
+					box3 -= 1;
+				}
 				console.log('left');
 				break;
 			case 38 :
 				console.log('up');
 				break;
 			case 39 :
-				mv12 += 1;
-				mv21 += 1;
+				box1 += 1;
+				box2 += 1;
+				box3 += 1;
 				console.log('right');
 				break;
 			case 40 :
 				console.log('down');
+				z += 1;
 				break;
 			default :
 				console.log('other');
