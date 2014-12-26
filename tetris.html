@@ -133,12 +133,23 @@
 		    z++;
 		}
 		
-		if(z == 14) {
+		if(z == 14 || ( $("table tr td[data-src=\"" + ((z+2) + "," + box3) + "\"]").attr("d") == "x") || ( $("table tr td[data-src=\"" + ((z+2) + "," + box4) + "\"]").attr("d") == "x")) {
 			console.log('===================');
 			$("table tr td[data-src=\"" + (z + "," + box1) + "\"]").removeAttr("rm");
 		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").removeAttr("rm");
 		    $("table tr td[data-src=\"" + ((z+1) + "," + box4) + "\"]").removeAttr("rm");
 		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").removeAttr("rm");
+
+		    $("table tr td[data-src=\"" + (z + "," + box1) + "\"]").attr("d","x");
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").attr("d","x");
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box4) + "\"]").attr("d","x");
+		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").attr("d","x");
+
+		    if ( ($("table tr td[data-src=\"" + (z + "," + box3) + "\"]").attr("d") == "x") || ( $("table tr td[data-src=\"" + (z + "," + box4) + "\"]").attr("d") == "x")) {
+				z = 1;
+				console.log("true");
+			}	
+
 		}
 	}
 
