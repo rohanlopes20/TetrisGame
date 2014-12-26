@@ -31,20 +31,21 @@
 
 	.color
 	{
-		background-color: red;
+		background-color: #FFF;
 	}
 
 </style>
 <script>
-	var n = 15;
-	var z = 1;
+	var n 	= 15;
+	var z 	= 1;
 	var mv1 = 1;
 	var mv2 = 2;
 	var box1 = 7;
 	var box2 = 8;
 	var box3 = 7;
 	var box4 = 8;
-
+	var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+	
 	function grid() {
 		var data 	= "<table>";
 		for (var i = 1; i <= n; i++) {
@@ -74,10 +75,10 @@
 					box4 = 8;
 					break;
 			case 2 :
-					box1 = 7;
-					box2 = 8;
-					box3 = undefined;
-					box4 = undefined;
+					box1 = undefined;
+					box2 = undefined;
+					box3 = 8;
+					box4 = 7;
 					break;
 			case 3 :
 					box1 = 7;
@@ -88,11 +89,11 @@
 			case 4 :
 					box1 = 7;
 					box2 = 8;
-					box3 = 7;
+					box3 = 8;
 					box4 = 8;
 					break;
 			default :
-					box1 = 7;
+					box1 = undefined;
 					box2 = 8;
 					box3 = 7;
 					box4 = 8;
@@ -102,17 +103,18 @@
 
 	function move() {
 	
-		$("table tr td[data-src='1, '" + box1 + "'']").addClass("color");
-		$("table tr td[data-src='1, '" + box2 + "'']").addClass("color");
-		$("table tr td[data-src='2, '" + box2 + "'']").addClass("color");
-		
+		$("table tr td[data-src='1, '" + box1 + "'']").css({'background-color': color});
+		$("table tr td[data-src='1, '" + box2 + "'']").css({'background-color': color});
+		$("table tr td[data-src='2, '" + box3 + "'']").css({'background-color': color});
+		$("table tr td[data-src='2, '" + box4 + "'']").css({'background-color': color});
+
 		if(z < 15){
-			$("table tr td[rm]").removeClass("color");
+			$("table tr td[rm]").css({"background-color":'#FFF'});
 			console.log(z);
-		    $("table tr td[data-src=\"" + (z + "," + box1) + "\"]").addClass("color");
-		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").addClass("color");
-		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").addClass("color");
-		    //$("table tr td[data-src=\"" + (z + "," + box4) + "\"]").addClass("color");
+		    $("table tr td[data-src=\"" + (z + "," + box1) + "\"]").css({'background-color': color});
+		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").css({'background-color': color});
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").css({'background-color': color});
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box4) + "\"]").css({'background-color': color});
 		    z++;
 		}
 		
@@ -120,11 +122,12 @@
 			console.log('===================');
 			$("table tr td[data-src=\"" + (z + "," + box1) + "\"]").removeAttr("rm");
 		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").removeAttr("rm");
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box4) + "\"]").removeAttr("rm");
 		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").removeAttr("rm");
 		}
 	}
 
-	setInterval(function(){move();if(z===15){z=1;}}, 1000);
+	setInterval(function(){move();if(z===15){z=1;titleGenerator();}}, 1000);
 
 	function bricks(keycode) {
 
@@ -134,6 +137,7 @@
 					box1 -= 1;
 					box2 -= 1;
 					box3 -= 1;
+					box4 -= 1;
 				}
 				console.log('left');
 				break;
@@ -144,6 +148,7 @@
 				box1 += 1;
 				box2 += 1;
 				box3 += 1;
+				box4 += 1;
 				console.log('right');
 				break;
 			case 40 :
