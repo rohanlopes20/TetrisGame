@@ -44,7 +44,7 @@
 	var box2 = 8;
 	var box3 = 7;
 	var box4 = 8;
-	var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+	var color = 'red';
 	
 	function grid() {
 		var data 	= "<table>";
@@ -66,6 +66,7 @@
 
 	function titleGenerator() {
 		var titlePatterns = Math.floor((Math.random() * 4) + 1);
+		color = '#'+Math.floor(Math.random()*16777215).toString(16);
 		console.log("==>", titlePatterns);
 		switch(titlePatterns) {
 			case 1 :
