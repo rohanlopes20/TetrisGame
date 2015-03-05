@@ -73,7 +73,7 @@
 		$(".main").html(data);
 	}
 
-	$(document).keypress(function(e) {
+	$(document).keydown(function(e) {
 		var code = e.keyCode || e.which;
 		bricks(code);
 	});
@@ -117,7 +117,7 @@
 	}
 
 	function move() {
-	
+
 		$("table tr td[data-src='1, '" + box1 + "'']").css({'background-color': color});
 		$("table tr td[data-src='1, '" + box2 + "'']").css({'background-color': color});
 		$("table tr td[data-src='2, '" + box3 + "'']").css({'background-color': color});
@@ -135,6 +135,7 @@
 		
 		if(z == 14 || ( $("table tr td[data-src=\"" + ((z+2) + "," + box3) + "\"]").attr("d") == "x") || ( $("table tr td[data-src=\"" + ((z+2) + "," + box4) + "\"]").attr("d") == "x")) {
 			console.log('===================');
+			var newColor = getRandomColor();
 			$("table tr td[data-src=\"" + (z + "," + box1) + "\"]").removeAttr("rm");
 		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").removeAttr("rm");
 		    $("table tr td[data-src=\"" + ((z+1) + "," + box4) + "\"]").removeAttr("rm");
@@ -145,6 +146,11 @@
 		    $("table tr td[data-src=\"" + ((z+1) + "," + box4) + "\"]").attr("d","x");
 		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").attr("d","x");
 
+		    $("table tr td[data-src=\"" + (z + "," + box1) + "\"]").css({'background-color': newColor});
+		    $("table tr td[data-src=\"" + (z + "," + box2) + "\"]").css({'background-color': newColor});
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box3) + "\"]").css({'background-color': newColor});
+		    $("table tr td[data-src=\"" + ((z+1) + "," + box4) + "\"]").css({'background-color': newColor});
+
 		    if ( ($("table tr td[data-src=\"" + (z + "," + box3) + "\"]").attr("d") == "x") || ( $("table tr td[data-src=\"" + (z + "," + box4) + "\"]").attr("d") == "x")) {
 				z = 1;
 				console.log("true");
@@ -153,7 +159,13 @@
 		}
 	}
 
-	setInterval(function(){move();if(z===15){z=1;titleGenerator();}}, 1000);
+	setInterval(function() {
+					move();
+					if (z === 14 ) {
+						z = 1; 
+						titleGenerator();
+					}
+				}, 1000);
 
 	function bricks(keycode) {
 
@@ -185,6 +197,15 @@
 				console.log('other');
 				break;
 		}
+	}
+
+	function getRandomColor() {
+	    var letters = '0123456789ABCDEF'.split('');
+	    var color = '#';
+	    for (var i = 0; i < 6; i++ ) {
+	        color += letters[Math.floor(Math.random() * 16)];
+	    }
+	    return color;
 	}
 
 	$(document).ready(function () {
